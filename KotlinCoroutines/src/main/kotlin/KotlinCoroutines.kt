@@ -6,7 +6,7 @@ fun main() = runBlocking {
     val job = launch() {
         for (i in 0..500) {
             print("$i ")
-            delay(1)
+            yield()
         }
     }
 
