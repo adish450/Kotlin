@@ -3,10 +3,13 @@ import kotlinx.coroutines.*
 fun main() = runBlocking {
     println("Main program starts: ${Thread.currentThread().name}")
 
-    val job = launch() {
+    val job = launch(Dispatchers.Default) {
         for (i in 0..500) {
+            if (!isActive) {
+                break
+            }
             print("$i ")
-            yield()
+            Thread.sleep(10)
         }
     }
 
