@@ -5,10 +5,9 @@ fun main() = runBlocking {
     println("Main program starts: ${Thread.currentThread().name}")
 
     val time = measureTime {
-        val msgOne = msgOne()
-        val msgTwo =  msgTwo()
-
-        println("$msgOne $msgTwo")
+        val msgOne = async { msgOne() }
+        val msgTwo = async { msgTwo() }
+        println("${msgOne.await()} ${msgTwo.await()}")
     }
 
     println(time)
