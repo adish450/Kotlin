@@ -3,13 +3,16 @@ import kotlinx.coroutines.*
 fun main() = runBlocking {
     println("Main program starts: ${Thread.currentThread().name}")
 
-    val job = launch(Dispatchers.Default) {
-        for (i in 0..500) {
-            if (!isActive) {
-                break
+    val job = launch {
+        try {
+            for (i in 0..500) {
+                print("$i ")
+                delay(1000)
             }
-            print("$i ")
-            Thread.sleep(10)
+        } catch (ex: CancellationException) {
+            println("\nException caught safely")
+        } finally {
+            println("\nClose resources in finally")
         }
     }
 
