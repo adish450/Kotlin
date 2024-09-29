@@ -5,9 +5,9 @@ fun main() = runBlocking {
     println("Main program starts: ${Thread.currentThread().name}")
 
     val time = measureTime {
-        val msgOne = async { msgOne() }
-        val msgTwo = async { msgTwo() }
-        println("${msgOne.await()} ${msgTwo.await()}")
+        val msgOne = async (start = CoroutineStart.LAZY) { msgOne() }
+        val msgTwo = async (start = CoroutineStart.LAZY) { msgTwo() }
+        //println("${msgOne.await()} ${msgTwo.await()}")
     }
 
     println(time)
