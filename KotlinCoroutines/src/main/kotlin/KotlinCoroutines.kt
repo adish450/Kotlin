@@ -10,7 +10,7 @@ fun main() = runBlocking {
                 delay(1000)
             }
         } catch (ex: CancellationException) {
-            println("\nException caught safely")
+            println("\nException caught safely : ${ex.message}")
         } finally {
             withContext(NonCancellable) {//coroutine builder
                 delay(1000) //Generally we don't use this
@@ -20,7 +20,8 @@ fun main() = runBlocking {
     }
 
     delay(10)
-    job.cancelAndJoin()
+    job.cancel(CancellationException("My custom message"))
+    job.join()
 
     println("Main program ends: ${Thread.currentThread().name}")
 }
