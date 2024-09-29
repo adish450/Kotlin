@@ -1,18 +1,27 @@
 import kotlinx.coroutines.*
+import kotlin.time.measureTime
 
 fun main() = runBlocking {
     println("Main program starts: ${Thread.currentThread().name}")
 
-    val result = withTimeoutOrNull(2000) {
-        for (i in 0..500) {
-            print("$i ")
-            delay(500)
-        }
-        5
+    val time = measureTime {
+        val msgOne = msgOne()
+        val msgTwo =  msgTwo()
+
+        println("$msgOne $msgTwo")
     }
 
-    println(result)
-
+    println(time)
 
     println("Main program ends: ${Thread.currentThread().name}")
+}
+
+suspend fun msgOne(): String {
+    delay(1000L)
+    return "Hello!, "
+}
+
+suspend fun msgTwo(): String {
+    delay(1000L)
+    return "World"
 }
