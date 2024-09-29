@@ -12,7 +12,10 @@ fun main() = runBlocking {
         } catch (ex: CancellationException) {
             println("\nException caught safely")
         } finally {
-            println("\nClose resources in finally")
+            withContext(NonCancellable) {//coroutine builder
+                delay(1000) //Generally we don't use this
+                println("\nClose resources in finally")
+            }
         }
     }
 
