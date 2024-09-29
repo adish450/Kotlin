@@ -3,18 +3,15 @@ import kotlinx.coroutines.*
 fun main() = runBlocking {
     println("Main program starts: ${Thread.currentThread().name}")
 
-    try {
-        withTimeout(2000) {
-            for (i in 0..500) {
-                print("$i ")
-                delay(500)
-            }
+    val result = withTimeoutOrNull(2000) {
+        for (i in 0..500) {
+            print("$i ")
+            delay(500)
         }
-    } catch (ex: TimeoutCancellationException) {
-        println(ex.message)
-    } finally {
-
+        5
     }
+
+    println(result)
 
 
     println("Main program ends: ${Thread.currentThread().name}")
